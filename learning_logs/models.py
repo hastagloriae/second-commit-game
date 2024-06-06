@@ -22,7 +22,7 @@ class Entry(models.Model):
 
     def __str__(self):
         """Повертає представлення моделі у string."""
-        if self.text > self.text[:50]:
+        if len(self.text) > 50:
             return f"{self.text[:50]}..."
         else:
-            return f"{self.text}"
+            return self.text
