@@ -1,17 +1,19 @@
 {% extends "learning_logs/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+<h2>Log in to your account.</h2>
+{% endblock page_header %}
 
 {% block content %}
+<form method="post" action="{% url 'users:login' %}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button name="sumbit" class="btn btn-primary">Log in</button>
+    {% endbuttons %}
 
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>  <!-- Опечатка: "math" должно быть "match" -->
-    {% endif %}
-
-    <form method="post" action="{% url 'users:login' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-
-        <button type="submit">Login</button>  <!-- Опечатка: name="submit" должно быть type="submit" -->
-        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />  <!-- Опечатка: name="text" должно быть name="next" -->
-    </form>
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+</form>
 
 {% endblock content %}
